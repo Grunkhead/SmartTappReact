@@ -15,16 +15,18 @@ export default class Show extends React.Component {
         // Only take ID out of the object.
         const { id } = this.props.match.params
 
-        const uri = `http://62.45.213.70:1337/taps?id=${id}`
-        const res = await fetch(uri)
+        window.setInterval(async () => {
+          const uri = `http://62.45.213.70:1337/taps?id=${id}`
+          const res = await fetch(uri)
 
-        let data = await res.json()
-        data = data[0]
-        console.log(data)
+          let data = await res.json()
+          data = data[0]
+          console.log(data)
 
-        this.setState({
-            tap: data
-        })
+          this.setState({
+              tap: data
+          })
+        }, 1000)
     }
 
 

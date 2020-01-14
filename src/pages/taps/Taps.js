@@ -14,6 +14,7 @@ export default class Taps extends React.Component {
     }
 
     async componentDidMount() {
+        
         // Voor Bas, URL is niet cool.
         const uri = 'http://62.45.213.70:1337/taps'
         const res = await fetch(uri)
