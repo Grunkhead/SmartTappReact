@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
+import Header from './pages/Header'
+import Taps from './pages/taps/Taps'
+import Footer from './pages/Footer'
+
+import Create from './pages/taps/Create'
+import Edit from './pages/taps/Edit'
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header></Header>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Mijn SmartTapps</Link>
+            </li>
+            <li>
+              <Link to="/taps/create">Nieuwe SmartTapp maken</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/" exact component={Taps}/>
+          <Route path="/taps/create" component={Create}/>
+          <Route path="/taps/edit" component={Edit}/>
+        </Switch>
+        
+      </div>
+      <Footer></Footer>
+    </Router>
   );
 }
-
-export default App;
