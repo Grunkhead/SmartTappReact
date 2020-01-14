@@ -1,8 +1,5 @@
 import React from 'react';
-
-import {
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Card extends React.Component {
     constructor(props) {
@@ -24,11 +21,14 @@ export default class Card extends React.Component {
                 }
                 <h2>{this.state.tap.name}</h2>
                 <div style={{ backgroundColor: 'orange', padding: '5px', marginBottom: '5px' }}>
+                    <Link to={`/taps/${this.state.tap.id}/show`}>Waterverbruik</Link>
+                </div>
+                <div style={{ backgroundColor: 'orange', padding: '5px', marginBottom: '5px' }}>
                     <Link to="/taps/edit">Aanpassen</Link>
                 </div>
                 <div style={{ backgroundColor: 'orange', padding: '5px' }}>
                     <Link to="/taps/destroy">Verwijderen</Link>
-                </div>
+                </div>  
             </div>
         )
     }

@@ -9,16 +9,15 @@ export default class Taps extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
             taps: null
         }
     }
 
     async componentDidMount() {
         // Voor Bas, URL is niet cool.
-        const uri = 'http://localhost:1337/taps'
+        const uri = 'http://62.45.213.70:1337/taps'
         const res = await fetch(uri)
-
+        
         this.setState({ taps: await res.json() })
     }
 

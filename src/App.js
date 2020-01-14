@@ -14,6 +14,7 @@ import Footer from './pages/Footer'
 
 import Create from './pages/taps/Create'
 import Edit from './pages/taps/Edit'
+import Show from './pages/taps/Show'
 
 export default function App() {
   return (
@@ -34,7 +35,8 @@ export default function App() {
         <Switch>
           <Route path="/" exact component={Taps}/>
           <Route path="/taps/create" component={Create}/>
-          <Route path="/taps/edit" component={Edit}/>
+          <Route path="/taps/:id/edit" component={Edit}/>
+          <Route path="/taps/:id/show" component={Show}/>
         </Switch>
         
       </div>
