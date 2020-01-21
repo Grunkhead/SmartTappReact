@@ -15,33 +15,13 @@ export default class Show extends React.Component {
         // Only take ID out of the object.
         const { id } = this.props.match.params
 
-        window.setInterval(async () => {
-          const uri = `http://62.45.213.70:1337/taps?id=${id}`
-          const res = await fetch(uri)
+        const uri = `http://145.24.222.249/taps/${id}`
+        const res = await fetch(uri)
 
-          let data = await res.json()
-          data = data[0]
-          console.log(data)
-
-          this.setState({
-              tap: data
-          })
-        }, 1000)
+        this.setState({
+            tap: await res.json()
+        })
     }
-
-
-    handleChange() {
-
-    }
-
-    handleSubmit() {
-
-    }
-
-    // formatDate(date) {
-    //     date = new Date(date)
-    //     return (`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`)
-    // }
 
     render() {
         return (
@@ -54,17 +34,17 @@ export default class Show extends React.Component {
                             <h1>SmartTapp '{this.state.tap.name}'</h1>
                             <table>
                                 <tr>
-                                    <th style={{ backgroundColor: 'orange' }}>Waterverbruik(ML)</th>
-                                    <th style={{ backgroundColor: 'orange' }}>Starttijd</th>
-                                    <th style={{ backgroundColor: 'orange' }}>Eindtijd</th>
+                                    <th style={{ backgroundColor: 'orange' }}>Description</th>
+                                    <th style={{ backgroundColor: 'orange' }}>Something</th>
+                                    <th style={{ backgroundColor: 'orange' }}>Updated At</th>
+                                    <th style={{ backgroundColor: 'orange' }}>Created At</th>
                                 </tr>
-                                {this.state.tap.sessions.map(x => 
-                                    <tr>
-                                        <td style={{ border: '1px solid gray' }}>{x.water_usage}</td>
-                                        <td style={{ border: '1px solid gray' }}><Moment format="DD-MM-YYYY HH:mm">{x.start_time}</Moment></td>
-                                        <td style={{ border: '1px solid gray' }}><Moment format="DD-MM-YYYY HH:mm">{x.end_time}</Moment></td>
-                                    </tr>
-                                )}
+                                <tr>
+                                    <td style={{ border: '1px solid gray' }}>{this.state.tap.description}</td>
+                                    <td style={{ border: '1px solid gray' }}>{this.state.tap.something}</td>
+                                    <td style={{ border: '1px solid gray' }}><Moment format="DD-MM-YYYY HH:mm">{this.state.tap.updated_at}</Moment></td>
+                                    <td style={{ border: '1px solid gray' }}><Moment format="DD-MM-YYYY HH:mm">{this.state.tap.created_at}</Moment></td>
+                                </tr>
                             </table>
                         </div>
                     )

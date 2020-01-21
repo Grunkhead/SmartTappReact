@@ -1,13 +1,10 @@
 import React from 'react';
 import Card from '../../components/Card';
 
-import {
-    Link
-} from "react-router-dom";
-
 export default class Taps extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             taps: null
         }
@@ -15,11 +12,29 @@ export default class Taps extends React.Component {
 
     async componentDidMount() {
         
-        // Voor Bas, URL is niet cool.
-        const uri = 'http://62.45.213.70:1337/taps'
-        const res = await fetch(uri)
+        const res = await fetch('http://145.24.222.249/taps')
+        const data = await res.json()
         
-        this.setState({ taps: await res.json() })
+        this.setState({ 
+            taps: data['items']
+        })
+    }
+
+    handleDelete = tapId => {
+
+        fetch(`http://145.24.222.249/taps/${tapId}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const taps = this.state.taps.filter(x => x._id !== tapId)
+        
+        this.setState({
+            taps: taps
+        });
     }
 
     render() {
@@ -31,7 +46,9 @@ export default class Taps extends React.Component {
                         <div>Loading SmartTapps..</div>
                     ) : (
                         <div>
-                            {this.state.taps.map(x => <Card tap={x}></Card>)}
+                            {
+                                this.state.taps.map(x => <Card onDelete={this.handleDelete} tap={x}></Card>)
+                            }
                         </div>
                     )
                 }
