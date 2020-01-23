@@ -6,8 +6,11 @@ export default class Taps extends React.Component {
         super(props);
 
         this.state = {
-            taps: null
+            taps: null,
+            message: null
         }
+
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     async componentDidMount() {
@@ -20,7 +23,10 @@ export default class Taps extends React.Component {
         })
     }
 
-    handleDelete = tapId => {
+    handleDelete = (tap, index) => {
+        const self = this
+        const tapId = tap._id
+        const taps = this.state.taps
 
         fetch(`http://145.24.222.249/taps/${tapId}`, {
             method: 'DELETE',
@@ -28,12 +34,16 @@ export default class Taps extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
+        }).then(res => {
+            if (res.ok) {
+                self.setState({
+                    message: `SmartTapp ${tap.name} succesvol verwijderd!`
+                })            
+            }
         })
 
-        const taps = this.state.taps.filter(x => x._id !== tapId)
-        
         this.setState({
-            taps: taps
+            taps: taps.filter(tap => tap._id !== tapId)
         });
     }
 
@@ -42,12 +52,17 @@ export default class Taps extends React.Component {
             <div>
                 <h1>Mijn SmartTapps</h1>
                 {
+                    this.state.message ? (
+                        <div style={{ backgroundColor: '#5CB85C', color: 'white', padding: '10px' }}>{this.state.message}</div>
+                    ) : (null)
+                }
+                {
                     !this.state.taps ? (
                         <div>Loading SmartTapps..</div>
                     ) : (
                         <div>
                             {
-                                this.state.taps.map(x => <Card onDelete={this.handleDelete} tap={x}></Card>)
+                                this.state.taps.map((tap, index) => <Card onDelete={this.handleDelete} index={index} tap={tap}></Card>)
                             }
                         </div>
                     )

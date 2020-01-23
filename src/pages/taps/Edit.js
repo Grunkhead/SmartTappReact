@@ -5,7 +5,8 @@ export default class Edit extends React.Component {
         super(props);
 
         this.state = {
-            tap: null
+            tap: null,
+            message: null
         }
     }
 
@@ -27,6 +28,7 @@ export default class Edit extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        const self = this
 
         fetch(`http://145.24.222.249/taps/${this.state.id}`, {
             method: 'PUT',
@@ -39,6 +41,12 @@ export default class Edit extends React.Component {
                 description: e.target.description.value,
                 something: e.target.something.value
             })
+        }).then(res => {
+            if (res.ok) {
+                self.setState({
+                    message: 'Gegevens succesvol gewijzigd!'
+                })
+            }
         })
     }
 
@@ -46,6 +54,11 @@ export default class Edit extends React.Component {
         return (
             <div>
                 <h1>Bestaande SmartTapp aanpassen</h1>
+                {
+                    this.state.message ? (
+                        <div style={{ backgroundColor: '#5CB85C', color: 'white', padding: '10px' }}>{this.state.message}</div>
+                    ) : (null)
+                }
                 {
                     !this.state.loading ? (
                         <div>Loading...</div>

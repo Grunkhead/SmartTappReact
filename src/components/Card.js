@@ -22,7 +22,7 @@ export default class Card extends React.Component {
                 </div>
                 <div style={{ backgroundColor: 'orange', padding: '5px' }}>
                     <Link onClick={
-                        () => this.props.onDelete(this.props.tap._id)
+                        () => this.props.onDelete(this.state.tap)
                     }>Verwijderen</Link>
                 </div>
             </div>
