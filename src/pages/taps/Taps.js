@@ -62,7 +62,7 @@ export default class Taps extends React.Component {
                     ) : (
                         <div>
                             {
-                                this.state.taps.map((tap, index) => <Card onDelete={this.handleDelete} index={index} tap={tap}></Card>)
+                                this.state.taps.map(tap => <Card onDelete={this.handleDelete} tap={tap}></Card>)
                             }
                         </div>
                     )
