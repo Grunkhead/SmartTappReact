@@ -23,7 +23,7 @@ export default class Taps extends React.Component {
         })
     }
 
-    handleDelete = (tap, index) => {
+    handleDelete = tap => {
         const self = this
         const tapId = tap._id
         const taps = this.state.taps
